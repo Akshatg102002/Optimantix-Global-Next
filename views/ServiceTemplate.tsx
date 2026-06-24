@@ -7,10 +7,6 @@ import { useData } from '../context/DataContext';
 import { Icon } from '../components/Icon';
 import { Check, Star, Settings, Package, TrendingUp, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
-import { SITE_URL } from '../data/seoData';
-import { buildPageSeo, findSeoOverride, normalizePath } from '../utils/buildPageSeo';
-import { buildPageSchema } from '../utils/buildPageSchema';
 import { AUTHENTIC_CASE_STUDIES } from '../data/caseStudies';
 import { ParallaxHero } from '../components/ParallaxHero';
 import { PortfolioSlider } from '../components/PortfolioSlider';
@@ -19,7 +15,7 @@ export const ServiceTemplate: React.FC = () => {
   const params = useParams() ?? {};
   const slug = params.slug as string;
   const router = useRouter();
-  const { services, seoPages } = useData();
+  const { services } = useData();
   const service = services.find(s => s.slug === slug);
 
   const MotionDiv = motion.div as React.ElementType;
@@ -54,31 +50,9 @@ export const ServiceTemplate: React.FC = () => {
   const hasBenefits = service.benefits && service.benefits.length > 0;
   const hasDeliverables = service.deliverables && service.deliverables.length > 0;
 
-  const path = `/services/${service.slug}`;
-  const override = findSeoOverride(seoPages, path);
-  const fallback = buildPageSeo(path);
-  const seoTitle = override?.metaTitle || fallback.title;
-  const seoDescription = override?.metaDescription || fallback.description;
-  const canonical = override?.canonicalUrl || `${SITE_URL}${normalizePath(path)}`;
-  const schema = buildPageSchema(path, seoTitle, seoDescription);
-  const schemas = Array.isArray(schema) ? schema : [schema];
-
   return (
     <div className="bg-light dark:bg-dark min-h-screen">
-      <Helmet>
-        <title>{seoTitle}</title>
-        <meta name="description" content={seoDescription} />
-        <link rel="canonical" href={canonical} />
-        <meta property="og:title" content={seoTitle} />
-        <meta property="og:description" content={seoDescription} />
-        <meta property="og:url" content={canonical} />
-        <meta property="og:type" content="website" />
-        {schemas.map((entry, idx) => (
-          <script key={idx} type="application/ld+json">{JSON.stringify(entry)}</script>
-        ))}
-      </Helmet>
-
-      <ParallaxHero 
+      <ParallaxHero
         title={service.title}
         subtitle={service.shortDescription}
         imageUrl={getServiceImage(service.slug)}

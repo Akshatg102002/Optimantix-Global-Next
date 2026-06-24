@@ -8,7 +8,6 @@ import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { ParallaxHero } from '../components/ParallaxHero';
 import { ShareButtons } from '../components/ShareButtons';
 import { RichContent } from '../components/RichContent';
-import { Helmet } from 'react-helmet-async';
 import { SITE_URL, truncateDescription } from '../data/seoData';
 
 export const BlogPost: React.FC = () => {
@@ -32,83 +31,9 @@ export const BlogPost: React.FC = () => {
   const recentBlogs = blogs.filter(b => b.slug !== slug).slice(0, 4);
 
   const currentUrl = `${SITE_URL}/blog/${blog.slug}`;
-  const seoTitle = blog.metaTitle || blog.title;
-  const seoDescription = truncateDescription(blog.metaDescription || blog.excerpt, 155);
-
-  // JSON-LD for Breadcrumbs
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${SITE_URL}/`
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Blog",
-        "item": `${SITE_URL}/blog`
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": blog.title,
-        "item": currentUrl
-      }
-    ]
-  };
-
-  // JSON-LD for Article
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": blog.title,
-    "description": seoDescription,
-    "image": blog.imageUrl,
-    "author": {
-      "@type": "Organization",
-      "name": "Optimantix Global"
-    },
-    "datePublished": blog.date,
-    "dateModified": blog.date,
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": currentUrl
-    }
-  };
-
-  // Person Schema (Author Bio representation)
-  const personSchema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": blog.author,
-    "url": `${SITE_URL}/about`,
-    "jobTitle": "Digital Marketing & Technology Expert",
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Optimantix Global"
-    }
-  };
 
   return (
     <div className="bg-light dark:bg-dark min-h-screen">
-      <Helmet>
-        <title>{seoTitle}</title>
-        <meta name="description" content={seoDescription} />
-        <link rel="canonical" href={currentUrl} />
-        <meta property="og:title" content={seoTitle} />
-        <meta property="og:description" content={seoDescription} />
-        <meta property="og:url" content={currentUrl} />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={blog.imageUrl} />
-        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(personSchema)}</script>
-      </Helmet>
-
       <ParallaxHero
          title={blog.title}
          subtitle={`By ${blog.author}`}

@@ -8,10 +8,8 @@ import {
   FileText, FileJson, BarChart3, Search, Layers, Cpu, RefreshCw,
   Shield, Link2, Map, Calculator, Zap
 } from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
 import { FREE_TOOLS, getToolBySlug } from '../data/freeTools';
 import type { FreeTool } from '../data/freeTools';
-import { SITE_URL, truncateDescription } from '../data/seoData';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -1123,10 +1121,6 @@ export const ToolPage: React.FC = () => {
     document.body.removeChild(a); URL.revokeObjectURL(url);
   };
 
-  const canonical = `${SITE_URL}/free-tools/${tool.slug}`;
-  const seoTitle = `${tool.name} — Free SEO Tool | Optimantix Global`;
-  const seoDescription = truncateDescription(tool.description, 155);
-
   const scoreColor = !result?.score ? '' : result.score >= 75 ? 'text-emerald-400' : result.score >= 50 ? 'text-amber-400' : 'text-rose-400';
 
   const placeholder: Record<string, string> = {
@@ -1140,15 +1134,6 @@ export const ToolPage: React.FC = () => {
 
   return (
     <div className="bg-slate-50 dark:bg-slate-950 min-h-screen text-slate-900 dark:text-slate-100 font-sans antialiased">
-      <Helmet>
-        <title>{seoTitle}</title>
-        <meta name="description" content={seoDescription} />
-        <link rel="canonical" href={canonical} />
-        <meta property="og:title" content={seoTitle} />
-        <meta property="og:description" content={seoDescription} />
-        <meta property="og:url" content={canonical} />
-      </Helmet>
-
       {/* Hero */}
       <section className="pt-28 pb-16 bg-[#070A13] text-white border-b border-slate-900 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-950/30 via-transparent to-transparent pointer-events-none" />
