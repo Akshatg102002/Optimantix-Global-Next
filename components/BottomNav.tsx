@@ -1,12 +1,14 @@
+'use client';
 
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Home, Layers, Briefcase, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const BottomNav: React.FC = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
+  const pathname = usePathname();
+  const currentPath = pathname || '/';
 
   const navItems = [
     { path: '/', label: 'Home', icon: Home },
@@ -29,7 +31,7 @@ export const BottomNav: React.FC = () => {
             return (
               <Link
                 key={item.path}
-                to={item.path}
+                href={item.path}
                 className={`relative flex flex-col items-center justify-center py-1.5 px-2 min-w-[50px] transition-colors duration-300 ${isActive ? 'text-primary' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
                   }`}
               >

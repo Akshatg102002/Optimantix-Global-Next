@@ -1,3 +1,5 @@
+'use client';
+
 // Global SEO injector for statically routed pages.
 // Dynamic detail routes manage their own <Helmet> inline and are excluded below.
 //
@@ -5,9 +7,10 @@
 //   Tier 1 — Firebase admin overrides (seoPages, managed via the admin SEO panel)
 //   Tier 2 — constants.ts service/sub-service fields (via buildPageSeo)
 //   Tier 3 — data/seoData.ts static fallbacks (via buildPageSeo)
+
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 import { useData } from '../context/DataContext';
 import { seoData, SITE_URL, truncateDescription } from '../data/seoData';
 import { buildPageSeo, findSeoOverride, matchServiceRoute, normalizePath } from '../utils/buildPageSeo';
@@ -39,9 +42,9 @@ function isServicesSelfManaged(path: string): boolean {
 }
 
 const RouteSEO: React.FC = () => {
-  const location = useLocation();
+  const pathname = usePathname() || '/';
   const { seoPages, seoPageLoading, pages } = useData();
-  const path = normalizePath(location.pathname);
+  const path = normalizePath(pathname);
 
   // Wait for the Firebase admin overrides to resolve before injecting any SEO
   // tags, so the fallback title never flashes ahead of a Tier 1 override.

@@ -1,3 +1,4 @@
+'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Service, BlogPost, Lead, Project, BlogCategory, CaseStudy, PageSEO, Page } from '../types';

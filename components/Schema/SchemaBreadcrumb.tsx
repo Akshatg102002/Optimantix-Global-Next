@@ -1,6 +1,8 @@
+'use client';
+
 import React, { useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 import { createBreadcrumbList } from '../../utils/schemaGenerator';
 import type { BreadcrumbList } from '../../types/schema';
 
@@ -61,8 +63,8 @@ export const SchemaBreadcrumb: React.FC<SchemaBreadcrumbProps> = ({
   breadcrumbs,
   customSchema,
 }) => {
-  const location = useLocation();
-  const pathname = location.pathname.replace(/\/$/, '') || '/';
+  const rawPathname = usePathname() || '/';
+  const pathname = rawPathname.replace(/\/$/, '') || '/';
 
   const schema = useMemo(() => {
     if (customSchema) return customSchema;

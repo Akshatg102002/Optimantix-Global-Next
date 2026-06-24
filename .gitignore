@@ -6,6 +6,10 @@ dist/
 dist.zip/
 public/sitemap.xml
 
+# Next.js
+.next/
+next-env.d.ts
+
 # Environment variables
 .env
 .env.local

@@ -1,3 +1,4 @@
+'use client';
 
 import React from 'react';
 import { Header } from './Header';
@@ -5,7 +6,7 @@ import { Footer } from './Footer';
 import { BottomNav } from './BottomNav';
 import { FloatingContact } from './FloatingContact';
 import { Chatbot } from './Chatbot';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 import { Helmet } from 'react-helmet-async';
 import { SITE_URL } from '../data/seoData';
 
@@ -31,8 +32,8 @@ const ORGANIZATION_SCHEMA = {
 };
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const location = useLocation();
-  const isAdmin = location.pathname.startsWith('/admin');
+  const pathname = usePathname() || '/';
+  const isAdmin = pathname.startsWith('/admin');
 
   if (isAdmin) {
     return <>{children}</>;

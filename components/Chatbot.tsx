@@ -1,10 +1,11 @@
+'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageCircle, X, Send, Sparkles } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { sanitizeInput } from '../utils/security';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
 interface Message {
   id: string;
@@ -27,7 +28,7 @@ export const Chatbot: React.FC = () => {
   const [inputText, setInputText] = useState('');
   
   const { services } = useData();
-  const navigate = useNavigate();
+  const router = useRouter();
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const addBotMessage = (text: string, options?: ChatOption[]) => {
@@ -74,7 +75,7 @@ export const Chatbot: React.FC = () => {
 
     if (option.action === 'navigate' && option.payload) {
         setIsOpen(false);
-        navigate(option.payload);
+        router.push(option.payload);
         return;
     }
 

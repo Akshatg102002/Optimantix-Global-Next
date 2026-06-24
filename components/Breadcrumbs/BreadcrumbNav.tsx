@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useMemo } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ChevronRight } from 'lucide-react';
 
 interface BreadcrumbItem {
@@ -36,8 +39,8 @@ export const BreadcrumbNav: React.FC<BreadcrumbNavProps> = ({
   showHome = true,
   separator = <ChevronRight className="w-4 h-4" />,
 }) => {
-  const location = useLocation();
-  const pathname = location.pathname.replace(/\/$/, '') || '/';
+  const rawPathname = usePathname() || '/';
+  const pathname = rawPathname.replace(/\/$/, '') || '/';
 
   const breadcrumbs = useMemo(() => {
     if (customBreadcrumbs) {
@@ -91,7 +94,7 @@ export const BreadcrumbNav: React.FC<BreadcrumbNavProps> = ({
           <>
             <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
               <Link
-                to="/"
+                href="/"
                 className="text-primary hover:underline"
                 itemProp="item"
               >
@@ -126,7 +129,7 @@ export const BreadcrumbNav: React.FC<BreadcrumbNavProps> = ({
               ) : (
                 <>
                   <Link
-                    to={item.url}
+                    href={item.url}
                     className="text-primary hover:underline"
                     itemProp="item"
                   >

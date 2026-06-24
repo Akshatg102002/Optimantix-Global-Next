@@ -1,6 +1,7 @@
+'use client';
 
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useData } from '../context/DataContext';
 
 interface ProtectedRouteProps {
@@ -9,9 +10,16 @@ interface ProtectedRouteProps {
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { isAuthenticated } = useData();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.replace('/admin/login');
+    }
+  }, [isAuthenticated, router]);
 
   if (!isAuthenticated) {
-    return <Navigate to="/admin/login" replace />;
+    return null;
   }
 
   return <>{children}</>;
