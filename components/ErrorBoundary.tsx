@@ -2,7 +2,6 @@
 
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
 
 interface Props {
   children?: ReactNode;
@@ -36,10 +35,6 @@ export class ErrorBoundary extends Component<Props, State> {
 
       return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-          <Helmet>
-            <title>Something went wrong | Optimantix Global</title>
-            <meta name="robots" content="noindex, nofollow" />
-          </Helmet>
           <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
             <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
               <AlertTriangle size={32} />

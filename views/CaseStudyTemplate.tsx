@@ -4,13 +4,11 @@ import React, { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useData } from '../context/DataContext';
-import { Helmet } from 'react-helmet-async';
 import { ParallaxHero } from '../components/ParallaxHero';
 import { ArrowLeft, Calendar, Tag } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { RichContent } from '../components/RichContent';
 import { ShareButtons } from '../components/ShareButtons';
-import { SITE_URL, truncateDescription } from '../data/seoData';
 
 export const CaseStudyTemplate: React.FC = () => {
   const params = useParams() ?? {};
@@ -35,22 +33,8 @@ export const CaseStudyTemplate: React.FC = () => {
 
   const MotionDiv = motion.div as React.ElementType;
 
-  const canonical = `${SITE_URL}/case-studies/${study.slug}`;
-  const seoTitle = study.metaTitle || `${study.title} | Optimantix Global`;
-  const seoDescription = truncateDescription(study.metaDescription || study.excerpt, 155);
-
   return (
     <div className="bg-light dark:bg-dark min-h-screen">
-      <Helmet>
-        <title>{seoTitle}</title>
-        <meta name="description" content={seoDescription} />
-        <link rel="canonical" href={canonical} />
-        <meta property="og:title" content={seoTitle} />
-        <meta property="og:description" content={seoDescription} />
-        <meta property="og:url" content={canonical} />
-        <meta property="og:type" content="article" />
-      </Helmet>
-
       <ParallaxHero
         title={study.title}
         subtitle={study.excerpt}
