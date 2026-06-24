@@ -2,12 +2,17 @@ import type { Metadata } from 'next';
 import { BlogPost } from '../../../views/BlogPost';
 import { buildRouteMetadata, resolveRouteSeo, type SeoOverride } from '../../../lib/seoMetadata';
 import { JsonLd } from '../../JsonLd';
-import { fetchBlogBySlug } from '../../../lib/seoOverrides';
+import { fetchBlogBySlug, fetchAllBlogSlugs } from '../../../lib/seoOverrides';
 import { SITE_URL, truncateDescription } from '../../../data/seoData';
 import type { BlogPost as BlogPostType } from '../../../types';
 
 interface PageProps {
   params: { slug: string };
+}
+
+export async function generateStaticParams() {
+  const slugs = await fetchAllBlogSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 async function resolveOverride(slug: string): Promise<SeoOverride | undefined> {

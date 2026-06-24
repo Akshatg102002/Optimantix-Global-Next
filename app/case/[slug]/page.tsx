@@ -9,6 +9,10 @@ interface PageProps {
   params: { slug: string };
 }
 
+export function generateStaticParams() {
+  return AUTHENTIC_CASE_STUDIES.filter((s) => s.slug).map((s) => ({ slug: s.slug }));
+}
+
 function findStudy(slug: string) {
   return AUTHENTIC_CASE_STUDIES.find((s) => s.slug === slug);
 }

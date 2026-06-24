@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Facebook, Linkedin, Instagram, Mail, Phone, MapPin, Lock } from 'lucide-react';
+import { Mail, Phone, MapPin, Lock } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const router = useRouter();
@@ -95,7 +95,7 @@ export const Footer: React.FC = () => {
           <div className="md:col-span-1 space-y-6">
             <img src="https://i.ibb.co/ZphZDpdz/OS.png" alt="Optimantix Global" className="h-12 bg-white rounded-lg p-2" />
             <p className="text-gray-400 text-sm leading-relaxed">End-to-end marketplace management agency helping brands scale across leading marketplaces.</p>
-            <div className="flex space-x-4 text-gray-400"><a href="https://www.facebook.com/optimantix" target="_blank" rel="noreferrer" className="hover:text-white transition"><Facebook size={18} /></a><a href="https://in.linkedin.com/company/optimantix" target="_blank" rel="noreferrer" className="hover:text-white transition"><Linkedin size={18} /></a><a href="https://www.instagram.com/optimantix/" target="_blank" rel="noreferrer" className="hover:text-white transition"><Instagram size={18} /></a></div>
+            {/* <div className="flex space-x-4 text-gray-400"><a href="https://www.facebook.com/optimantix" target="_blank" rel="noreferrer" className="hover:text-white transition"><Facebook size={18} /></a><a href="https://in.linkedin.com/company/optimantix" target="_blank" rel="noreferrer" className="hover:text-white transition"><Linkedin size={18} /></a><a href="https://www.instagram.com/optimantix/" target="_blank" rel="noreferrer" className="hover:text-white transition"><Instagram size={18} /></a></div> */}
           </div>
           <div><h4 className="text-sm font-bold mb-4 text-primary uppercase tracking-wider">Services</h4><ul className="space-y-2">{services.slice(0,4).map(s => <li key={s.href}><Link href={s.href} className="footer-link text-sm">{s.label}</Link></li>)}</ul></div>
           <div><h4 className="text-sm font-bold mb-4 text-primary uppercase tracking-wider">Marketplaces</h4><ul className="space-y-2">{marketplaces.map(m => <li key={m.label}><Link href={m.href} className="footer-link text-sm">{m.label}</Link></li>)}</ul></div>

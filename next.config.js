@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+
   reactStrictMode: true,
+
   images: {
+    unoptimized: true, // required for static export
     remotePatterns: [
       { protocol: 'https', hostname: 'res.cloudinary.com' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
@@ -10,6 +14,7 @@ const nextConfig = {
       { protocol: 'https', hostname: 'firebasestorage.googleapis.com' },
     ],
   },
+
   async redirects() {
     return [
       {

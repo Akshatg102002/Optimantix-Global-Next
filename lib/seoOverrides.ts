@@ -3,6 +3,8 @@
 // metaTitle/metaDescription previously only reached the DOM client-side via
 // react-helmet-async. Every export here is defensive: if the Admin SDK isn't
 // configured or the read fails, callers fall back to Tier 2/3 static data.
+import fs from 'fs';
+import path from 'path';
 import { getAdminDb } from './firebase-admin';
 import { findSeoOverride } from '../utils/buildPageSeo';
 import type { PageSEO, BlogPost, CaseStudy } from '../types';
@@ -48,5 +50,82 @@ export async function fetchCaseStudyBySlug(slug: string): Promise<CaseStudy | un
   } catch (error) {
     console.warn('[seoOverrides] Failed to fetch case study:', error);
     return undefined;
+  }
+}
+
+/**
+ * Fetch every blog slug for static export.
+ *
+ * Same approach as fetchAllCaseStudySlugs below: read the freshly generated
+ * public/sitemap.xml first (written immediately before `next build` runs in
+ * the same `npm run build` command), falling back to a direct Firestore read
+ * if the sitemap is missing or empty.
+ */
+export async function fetchAllBlogSlugs(): Promise<string[]> {
+  // 1. Try reading from the just-generated sitemap.xml
+  try {
+    const sitemapPath = path.resolve(process.cwd(), 'public/sitemap.xml');
+    const xml = fs.readFileSync(sitemapPath, 'utf-8');
+    const matches = [...xml.matchAll(/\/blog\/([^<]+)<\/loc>/g)];
+    const slugs = matches.map((m) => m[1].trim()).filter(Boolean);
+    if (slugs.length > 0) return slugs;
+  } catch (error) {
+    console.warn('[seoOverrides] Could not read sitemap.xml for blog slugs:', (error as Error)?.message);
+  }
+
+  // 2. Fall back to a direct Firestore read
+  const db = getAdminDb();
+  if (!db) return [];
+
+  try {
+    const snapshot = await db.collection('blogs').get();
+    return snapshot.docs
+      .map((doc) => doc.data() as BlogPost)
+      .filter((blog) => blog.slug && (blog as any).isPublished !== false)
+      .map((blog) => blog.slug as string);
+  } catch (error) {
+    console.warn('[seoOverrides] Failed to fetch blog slugs:', error);
+    return [];
+  }
+}
+
+/**
+ * Fetch every case-study slug for static export.
+ *
+ * Primary source: public/sitemap.xml, which generate-sitemap.ts writes
+ * immediately before `next build` runs in the same `npm run build` command.
+ * Reading it back here guarantees generateStaticParams() produces exactly
+ * the same set of /case-studies/* pages that the sitemap promises — no
+ * second Firestore round-trip, and no risk of sitemap/page mismatch.
+ *
+ * Fallback: if sitemap.xml is missing or unreadable (e.g. a fresh checkout
+ * that hasn't run the sitemap step), fall back to a direct Firestore read
+ * via the Admin SDK so the route is never left with zero static pages.
+ */
+export async function fetchAllCaseStudySlugs(): Promise<string[]> {
+  // 1. Try reading from the just-generated sitemap.xml
+  try {
+    const sitemapPath = path.resolve(process.cwd(), 'public/sitemap.xml');
+    const xml = fs.readFileSync(sitemapPath, 'utf-8');
+    const matches = [...xml.matchAll(/\/case-studies\/([^<]+)<\/loc>/g)];
+    const slugs = matches.map((m) => m[1].trim()).filter(Boolean);
+    if (slugs.length > 0) return slugs;
+  } catch (error) {
+    console.warn('[seoOverrides] Could not read sitemap.xml for case study slugs:', (error as Error)?.message);
+  }
+
+  // 2. Fall back to a direct Firestore read
+  const db = getAdminDb();
+  if (!db) return [];
+
+  try {
+    const snapshot = await db.collection('case_studies').get();
+    return snapshot.docs
+      .map((doc) => doc.data() as CaseStudy)
+      .filter((study) => study.slug && (study as any).isPublished !== false)
+      .map((study) => study.slug as string);
+  } catch (error) {
+    console.warn('[seoOverrides] Failed to fetch case study slugs:', error);
+    return [];
   }
 }
