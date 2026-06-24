@@ -7,6 +7,8 @@ import fs from 'fs';
 import path from 'path';
 import { getAdminDb } from './firebase-admin';
 import { findSeoOverride } from '../utils/buildPageSeo';
+import { AUTHENTIC_CASE_STUDIES } from '../data/caseStudies';
+import { INITIAL_BLOGS } from '../constants';
 import type { PageSEO, BlogPost, CaseStudy } from '../types';
 
 export async function fetchSeoOverride(pathname: string): Promise<PageSEO | undefined> {
@@ -25,32 +27,41 @@ export async function fetchSeoOverride(pathname: string): Promise<PageSEO | unde
 
 export async function fetchBlogBySlug(slug: string): Promise<BlogPost | undefined> {
   const db = getAdminDb();
-  if (!db) return undefined;
-
-  try {
-    const snapshot = await db.collection('blogs').where('slug', '==', slug).limit(1).get();
-    if (snapshot.empty) return undefined;
-    const doc = snapshot.docs[0];
-    return { id: doc.id, ...doc.data() } as BlogPost;
-  } catch (error) {
-    console.warn('[seoOverrides] Failed to fetch blog post:', error);
-    return undefined;
+  if (db) {
+    try {
+      const snapshot = await db.collection('blogs').where('slug', '==', slug).limit(1).get();
+      if (!snapshot.empty) {
+        const doc = snapshot.docs[0];
+        return { id: doc.id, ...doc.data() } as BlogPost;
+      }
+    } catch (error) {
+      console.warn('[seoOverrides] Failed to fetch blog post:', error);
+    }
   }
+
+  // Fall back to the bundled blog posts so builds without Firestore
+  // access still bake real per-post metadata instead of the site default.
+  return INITIAL_BLOGS.find((blog) => blog.slug === slug);
 }
 
 export async function fetchCaseStudyBySlug(slug: string): Promise<CaseStudy | undefined> {
   const db = getAdminDb();
-  if (!db) return undefined;
-
-  try {
-    const snapshot = await db.collection('case_studies').where('slug', '==', slug).limit(1).get();
-    if (snapshot.empty) return undefined;
-    const doc = snapshot.docs[0];
-    return { id: doc.id, ...doc.data() } as CaseStudy;
-  } catch (error) {
-    console.warn('[seoOverrides] Failed to fetch case study:', error);
-    return undefined;
+  if (db) {
+    try {
+      const snapshot = await db.collection('case_studies').where('slug', '==', slug).limit(1).get();
+      if (!snapshot.empty) {
+        const doc = snapshot.docs[0];
+        return { id: doc.id, ...doc.data() } as CaseStudy;
+      }
+    } catch (error) {
+      console.warn('[seoOverrides] Failed to fetch case study:', error);
+    }
   }
+
+  // Fall back to the bundled case studies so admin-managed slugs that
+  // happen to collide with a seeded one (or builds without Firestore
+  // access) still resolve to real content instead of a blank page.
+  return AUTHENTIC_CASE_STUDIES.find((study) => study.slug === slug);
 }
 
 /**
@@ -116,17 +127,21 @@ export async function fetchAllCaseStudySlugs(): Promise<string[]> {
 
   // 2. Fall back to a direct Firestore read
   const db = getAdminDb();
-  if (!db) return [];
+  const fallbackSlugs = AUTHENTIC_CASE_STUDIES.filter((study) => study.slug).map((study) => study.slug);
+  if (!db) return fallbackSlugs;
 
   try {
     const snapshot = await db.collection('case_studies').get();
-    return snapshot.docs
+    const slugs = snapshot.docs
       .map((doc) => doc.data() as CaseStudy)
       .filter((study) => study.slug && (study as any).isPublished !== false)
       .map((study) => study.slug as string);
+    // 3. Always guarantee at least the bundled slugs, so "output: export"
+    // never has zero params to generate for this route.
+    return slugs.length > 0 ? slugs : fallbackSlugs;
   } catch (error) {
     console.warn('[seoOverrides] Failed to fetch case study slugs:', error);
-    return [];
+    return fallbackSlugs;
   }
 }
 

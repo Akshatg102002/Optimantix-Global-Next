@@ -12,10 +12,9 @@ export const Icon: React.FC<IconProps> = ({ name, size = 24, className }) => {
   const LucideIcon = (LucideIcons as unknown as Record<string, React.ElementType>)[name];
   
   // Safe fallback if the icon name doesn't exist in the library
-  // Note: Lucide v0.3+ renamed HelpCircle to CircleHelp
   if (!LucideIcon) {
     console.warn(`Icon "${name}" not found in lucide-react`);
-    const Fallback = (LucideIcons as unknown as Record<string, React.ElementType>)['CircleHelp'] || (LucideIcons as unknown as Record<string, React.ElementType>)['HelpCircle'] || (LucideIcons as unknown as Record<string, React.ElementType>)['AlertCircle'];
+    const Fallback = (LucideIcons as unknown as Record<string, React.ElementType>)['HelpCircle'] || (LucideIcons as unknown as Record<string, React.ElementType>)['AlertCircle'];
     
     if (Fallback) {
       return <Fallback size={size} className={className} />;

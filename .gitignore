@@ -8,6 +8,7 @@ public/sitemap.xml
 
 # Next.js
 .next/
+out/
 next-env.d.ts
 
 # Environment variables
