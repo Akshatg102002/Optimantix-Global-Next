@@ -8,7 +8,7 @@ import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { ParallaxHero } from '../components/ParallaxHero';
 import { ShareButtons } from '../components/ShareButtons';
 import { RichContent } from '../components/RichContent';
-import { SITE_URL, truncateDescription } from '../data/seoData';
+import { SITE_URL } from '../data/seoData';
 
 export const BlogPost: React.FC = () => {
   const params = useParams() ?? {};

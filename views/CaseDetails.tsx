@@ -8,6 +8,7 @@ import { ArrowLeft, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { RichContent } from '../components/RichContent';
 import { ShareButtons } from '../components/ShareButtons';
+import { SITE_URL } from '../data/seoData';
 
 export const CaseDetails: React.FC = () => {
   const params = useParams() ?? {};
@@ -95,7 +96,7 @@ export const CaseDetails: React.FC = () => {
             <RichContent content={study.content} variant="case-study" imageAlt={study.title} />
             
             <div className="mt-12 pt-8 border-t border-gray-100 dark:border-gray-800">
-                <ShareButtons title={study.title} url={window.location.href} />
+                <ShareButtons title={study.title} url={`${SITE_URL}/case/${study.slug}`} />
             </div>
 
           </MotionDiv>
