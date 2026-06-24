@@ -5,10 +5,12 @@ import { JsonLd } from './JsonLd';
 
 const PATH = '/404';
 
-export const metadata: Metadata = buildRouteMetadata(PATH);
+export async function generateMetadata(): Promise<Metadata> {
+  return buildRouteMetadata(PATH);
+}
 
-export default function NotFoundPage() {
-  const { title, description } = resolveRouteSeo(PATH);
+export default async function NotFoundPage() {
+  const { title, description } = await resolveRouteSeo(PATH);
   const schema = buildRouteSchema(PATH, title, description);
   return (
     <>

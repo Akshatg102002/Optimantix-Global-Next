@@ -7,13 +7,13 @@ interface PageProps {
   params: { slug: string };
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   return buildRouteMetadata(`/free-tools/${params.slug}`);
 }
 
-export default function Page({ params }: PageProps) {
+export default async function Page({ params }: PageProps) {
   const pathname = `/free-tools/${params.slug}`;
-  const { title, description } = resolveRouteSeo(pathname);
+  const { title, description } = await resolveRouteSeo(pathname);
   const schema = buildRouteSchema(pathname, title, description);
 
   return (
