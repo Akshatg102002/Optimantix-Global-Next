@@ -9,6 +9,7 @@ import { ArrowLeft, Calendar, Tag } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { RichContent } from '../components/RichContent';
 import { ShareButtons } from '../components/ShareButtons';
+import { SITE_URL } from '../data/seoData';
 
 export const CaseStudyTemplate: React.FC = () => {
   const params = useParams() ?? {};
@@ -79,7 +80,7 @@ export const CaseStudyTemplate: React.FC = () => {
 
             {/* Content */}
             <RichContent content={study.content} variant="case-study" imageAlt={study.title} />
-            <ShareButtons title={study.title} url={window.location.href} />
+            <ShareButtons title={study.title} url={`${SITE_URL}/case-studies/${study.slug}`} />
 
             {/* Tags */}
             {study.tags && study.tags.length > 0 && (
