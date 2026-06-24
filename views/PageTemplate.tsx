@@ -10,10 +10,11 @@ import { ShareButtons } from '../components/ShareButtons';
 import { RichContent } from '../components/RichContent';
 import { SITE_URL } from '../data/seoData';
 
-// SEO (title/meta/canonical/JSON-LD) for this route is owned by RouteSEO,
-// which resolves custom admin pages via the three-tier system (Firebase
-// override > this page's own metaTitle/schemaType > fallback). See
-// components/RouteSEO.tsx and utils/buildPageSchema.ts.
+// SEO (title/meta/canonical/JSON-LD) for this route is owned by the
+// corresponding app/**/page.tsx's generateMetadata, which resolves custom
+// admin pages via the three-tier system (Firebase override > this page's own
+// metaTitle/schemaType > fallback). See lib/seoMetadata.ts and
+// utils/buildPageSchema.ts.
 export const PageTemplate: React.FC = () => {
   const params = useParams() ?? {};
   const slug = params.slug as string;
