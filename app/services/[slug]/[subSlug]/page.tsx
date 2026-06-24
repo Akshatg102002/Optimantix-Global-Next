@@ -1,10 +1,19 @@
 import type { Metadata } from 'next';
 import { SubServiceTemplate } from '../../../../views/SubServiceTemplate';
 import { buildRouteMetadata, buildRouteSchema, resolveRouteSeo } from '../../../../lib/seoMetadata';
+import { INITIAL_SERVICES } from '../../../../constants';
 import { JsonLd } from '../../../JsonLd';
 
 interface PageProps {
   params: { slug: string; subSlug: string };
+}
+
+export function generateStaticParams() {
+  return INITIAL_SERVICES.flatMap((service) =>
+    (service.subServices ?? [])
+      .filter((sub) => sub.slug)
+      .map((sub) => ({ slug: service.slug, subSlug: sub.slug }))
+  );
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

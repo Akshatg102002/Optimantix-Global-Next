@@ -3,10 +3,18 @@ import { ServiceTemplate } from '../../../views/ServiceTemplate';
 import { PageTemplate } from '../../../views/PageTemplate';
 import { INITIAL_SERVICES } from '../../../constants';
 import { buildRouteMetadata, buildRouteSchema, resolveRouteSeo } from '../../../lib/seoMetadata';
+import { fetchAllServicePageSlugs } from '../../../lib/seoOverrides';
 import { JsonLd } from '../../JsonLd';
 
 interface PageProps {
   params: { slug: string };
+}
+
+export async function generateStaticParams() {
+  const builtInSlugs = INITIAL_SERVICES.filter((service) => service.slug).map((service) => service.slug);
+  const pageSlugs = await fetchAllServicePageSlugs();
+  const allSlugs = [...new Set([...builtInSlugs, ...pageSlugs])];
+  return allSlugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

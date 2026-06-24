@@ -129,3 +129,41 @@ export async function fetchAllCaseStudySlugs(): Promise<string[]> {
     return [];
   }
 }
+
+/**
+ * Fetch every admin-managed page slug that resolves under /services/{slug}.
+ *
+ * Same sitemap-first, Firestore-fallback approach as the slug fetchers
+ * above. Built-in service slugs (from INITIAL_SERVICES) also live at
+ * /services/{slug}, so the sitemap regex naturally picks both up — the
+ * caller in app/services/[slug]/page.tsx merges this with INITIAL_SERVICES
+ * directly so built-in slugs are never missed even if the sitemap/Firestore
+ * read fails.
+ */
+export async function fetchAllServicePageSlugs(): Promise<string[]> {
+  // 1. Try reading from the just-generated sitemap.xml
+  try {
+    const sitemapPath = path.resolve(process.cwd(), 'public/sitemap.xml');
+    const xml = fs.readFileSync(sitemapPath, 'utf-8');
+    const matches = [...xml.matchAll(/\/services\/([^/<]+)<\/loc>/g)];
+    const slugs = [...new Set(matches.map((m) => m[1].trim()).filter(Boolean))];
+    if (slugs.length > 0) return slugs;
+  } catch (error) {
+    console.warn('[seoOverrides] Could not read sitemap.xml for service page slugs:', (error as Error)?.message);
+  }
+
+  // 2. Fall back to a direct Firestore read of the admin-managed pages collection
+  const db = getAdminDb();
+  if (!db) return [];
+
+  try {
+    const snapshot = await db.collection('pages').get();
+    return snapshot.docs
+      .map((doc) => doc.data() as { slug?: string; isPublished?: boolean })
+      .filter((page) => page.slug && page.isPublished !== false)
+      .map((page) => page.slug as string);
+  } catch (error) {
+    console.warn('[seoOverrides] Failed to fetch service page slugs:', error);
+    return [];
+  }
+}

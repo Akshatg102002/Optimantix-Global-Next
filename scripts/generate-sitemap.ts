@@ -1,9 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { getAuth, signInAnonymously } from 'firebase/auth';
+import { getAdminDb } from '../lib/firebase-admin';
 import { INITIAL_SERVICES, INITIAL_BLOGS } from '../constants';
 import { AUTHENTIC_CASE_STUDIES } from '../data/caseStudies';
 
@@ -11,17 +9,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const BASE_URL = 'https://optimantix.com';
-
-// Firebase client config (same project as the web app), sourced from env vars.
-const firebaseConfig = {
-  apiKey: process.env.VITE_FIREBASE_API_KEY,
-  authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.VITE_FIREBASE_APP_ID,
-  measurementId: process.env.VITE_FIREBASE_MEASUREMENT_ID,
-};
 
 interface SitemapEntry {
   loc: string;
@@ -42,8 +29,14 @@ const xmlEscape = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').
 /**
  * Fetch published documents from Firestore at build time so newly published
  * blogs, case studies and pages are automatically included on every build.
- * Falls back gracefully to bundled static data if the network/DB is
- * unavailable (e.g. offline CI), so the build never fails.
+ * Falls back gracefully to bundled static data if the Admin SDK isn't
+ * configured or the read fails (e.g. offline CI), so the build never fails.
+ *
+ * Uses the Admin SDK (same as lib/firebase-admin.ts / lib/seoOverrides.ts)
+ * rather than the client SDK — the client SDK's streaming Listen/Watch
+ * channel isn't meant for one-shot reads from a plain Node script and was
+ * producing "GrpcConnection RPC 'Listen' stream error" / INVALID_ARGUMENT
+ * noise on every build even when the read itself ultimately fell back fine.
  */
 async function fetchFirestoreContent() {
   const result: {
@@ -53,37 +46,25 @@ async function fetchFirestoreContent() {
     source: 'firestore' | 'static-fallback';
   } = { blogs: [], caseStudies: [], pages: [], source: 'firestore' };
 
-  try {
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+  const db = getAdminDb();
 
-    // The web app reads these collections via anonymous auth; mirror that here.
+  if (!db) {
+    result.source = 'static-fallback';
+  } else {
     try {
-      await signInAnonymously(getAuth(app));
-    } catch {
-      // Non-fatal — proceed in case the collections allow public reads.
-    }
-
-    const withTimeout = <T>(p: Promise<T>, ms = 20000): Promise<T> =>
-      Promise.race([
-        p,
-        new Promise<T>((_, reject) => setTimeout(() => reject(new Error('Firestore timeout')), ms)),
+      const [blogsSnap, csSnap, pagesSnap] = await Promise.all([
+        db.collection('blogs').get(),
+        db.collection('case_studies').get(),
+        db.collection('pages').get(),
       ]);
 
-    const [blogsSnap, csSnap, pagesSnap] = await withTimeout(
-      Promise.all([
-        getDocs(collection(db, 'blogs')),
-        getDocs(collection(db, 'case_studies')),
-        getDocs(collection(db, 'pages')),
-      ])
-    );
-
-    result.blogs = blogsSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    result.caseStudies = csSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    result.pages = pagesSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
-  } catch (err) {
-    console.warn('Sitemap: Firestore fetch failed, using static fallback.', (err as Error)?.message);
-    result.source = 'static-fallback';
+      result.blogs = blogsSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      result.caseStudies = csSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      result.pages = pagesSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    } catch (err) {
+      console.warn('Sitemap: Firestore fetch failed, using static fallback.', (err as Error)?.message);
+      result.source = 'static-fallback';
+    }
   }
 
   // Always merge static bundled data as a baseline so nothing is ever missed.
