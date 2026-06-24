@@ -615,7 +615,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setPages(fetchedPages);
       }
     } catch (error) {
-      console.warn("Fetching pages failed:", error);
+      console.warn(`Fetching pages failed (code=${(error as { code?: string })?.code ?? 'unknown'}):`, error);
     } finally {
       setPagesLoaded(true);
     }
