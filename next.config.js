@@ -1,11 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
+  trailingSlash: true,
 
   reactStrictMode: true,
 
   images: {
-    unoptimized: true, // required for static export
+    unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: 'res.cloudinary.com' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
@@ -13,16 +14,6 @@ const nextConfig = {
       { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
       { protocol: 'https', hostname: 'firebasestorage.googleapis.com' },
     ],
-  },
-
-  async redirects() {
-    return [
-      {
-        source: '/pages/:slug',
-        destination: '/services/:slug',
-        permanent: true,
-      },
-    ];
   },
 };
 
