@@ -8,6 +8,52 @@ import { AnimatePresence, motion } from 'framer-motion';
 const services = [
   ['Marketplace Account Setup', 'Complete onboarding, registration, and configuration for every major platform', Settings], ['Catalog Creation & Optimisation', 'SEO-rich listings with compelling copy, images, and keyword strategies that drive discovery', ClipboardCheck], ['Marketplace SEO', 'Advanced keyword research, listing optimisation, and search ranking strategies', Search], ['Product Content & A+ Content', 'Premium branded storefronts, A+ modules, and enhanced content that converts', Star], ['Advertising Management', 'Full-funnel ad campaigns across Sponsored Products, Brands, and Display with ROAS focus', Megaphone], ['Inventory & Replenishment Planning', 'Demand forecasting and stock management to prevent stockouts and overstock', PackageCheck], ['Pricing & Buy Box Optimisation', 'Competitive pricing strategies and algorithmic repricing to win and hold the Buy Box', ShoppingCart], ['Order & Return Management', 'Streamlined order fulfilment tracking and hassle-free return handling', Box], ['Account Health Monitoring', 'Proactive compliance management to keep your seller metrics in the green', ShieldAlert], ['Reviews & Reputation Management', 'Systematic review generation strategies that build trust and drive conversions', HeartHandshake], ['Marketplace Analytics & Reporting', 'Data-driven dashboards and performance insights to guide smarter decisions', BarChart], ['International Expansion Support', 'Expert guidance on cross-border selling across global marketplaces', Globe]
 ] as const;
+
+const MARKETPLACES = [
+  {
+    name: 'Amazon',
+    slug: 'amazon',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg',
+  },
+  {
+    name: 'Flipkart',
+    slug: 'flipkart',
+    logo: 'https://brandlogos.net/wp-content/uploads/2020/11/Flipkart-logo-1-512x143.png',
+  },
+  {
+    name: 'Meesho',
+    slug: 'meesho',
+    logo: 'https://brandlogos.net/wp-content/uploads/2025/09/meesho-logo_brandlogos.net_ktaee-512x108.png',
+  },
+  {
+    name: 'Myntra',
+    slug: 'myntra',
+    logo: 'https://brandlogos.net/wp-content/uploads/2022/03/myntra-logo-brandlogos.net_-512x512.png',
+  },
+  {
+    name: 'Nykaa',
+    slug: 'nykaa',
+    logo: 'https://brandlogos.net/wp-content/uploads/2025/02/nykaa-logo_brandlogos.net_fcvn4-300x99.png',
+  },
+  {
+    name: 'Ajio',
+    slug: 'ajio',
+    logo: 'https://brandlogos.net/wp-content/uploads/2022/05/ajio-logo_brandlogos.net_muvsw-200x200.png',
+  },
+  {
+    name: 'Blinkit',
+    slug: 'blinkit',
+    logo: 'https://brandlogos.net/wp-content/uploads/2025/05/blinkit-logo_brandlogos.net_yvy1m-300x300.png',
+  },
+  {
+    name: 'Zepto',
+    slug: 'zepto',
+    logo: 'https://brandlogos.net/wp-content/uploads/2025/07/zepto-logo_brandlogos.net_7luw9-300x98.png',
+  },
+]
+
+const doubled = [...MARKETPLACES, ...MARKETPLACES]
+
 const pains = ['Low Marketplace Visibility', 'Poor Conversion Rates', 'High Advertising Costs', 'Inventory Issues', 'Account Health Problems', 'Unoptimised Listings', 'Low Organic Rankings', 'Scaling Challenges'];
 const process = [['Marketplace Audit', 'Deep-dive analysis of your current marketplace presence'], ['Strategy Development', 'Custom growth roadmap tailored to your category and goals'], ['Account Setup & Optimisation', 'Technical foundations and listing excellence'], ['Advertising & Launch', 'Targeted campaigns to drive visibility and sales'], ['Monitoring & Reporting', 'Continuous tracking against KPIs and performance goals'], ['Scale & Expansion', 'Expand to new platforms and markets with proven systems']];
 const features = ['Dedicated Account Managers', 'Marketplace Specialists', 'Data-Driven Strategy', 'Weekly Performance Reviews', 'Transparent Reporting', 'Proven Growth Framework', 'Cross-Marketplace Expertise', 'Scalable Systems'];
@@ -33,7 +79,37 @@ export const Home: React.FC = () => {
   const [open, setOpen] = useState(0); const MotionDiv = motion.div as React.ElementType;
   return <div className="bg-light dark:bg-dark text-slate-900 dark:text-gray-100">
     <section className="relative pt-24 pb-24 bg-[#020617] text-white overflow-hidden"><div className="container mx-auto px-4 text-center max-w-5xl"><h1 className="text-5xl md:text-7xl font-bold leading-tight mb-8">Scale Your Brand Across<br /><span className="text-primary">Leading Marketplaces</span></h1><p className="text-xl text-gray-300 max-w-3xl mx-auto mb-10">End-to-end marketplace management covering listing optimisation, advertising, inventory planning, account management, content creation, and growth strategy across the world's leading marketplaces.</p><div className="flex flex-col sm:flex-row gap-4 justify-center mb-8"><Link href="/contact" className="bg-primary hover:bg-secondary px-8 py-4 rounded-full font-bold inline-flex items-center justify-center">Book Free Audit <ArrowRight className="ml-2" /></Link><Link href="/services" className="border border-white/20 hover:bg-white/10 px-8 py-4 rounded-full font-bold">Explore Services</Link></div><div className="flex flex-wrap justify-center gap-4 text-sm text-gray-300"><span>500+ Brands Managed</span><span>·</span><span>700+ to 10M+ Experience</span><span>·</span><span>Multi-Marketplace Experts</span></div></div></section>
-    <section className="py-16 overflow-hidden"><SectionHead label="Marketplaces We Manage" title="One Team. Multiple Marketplaces." sub="Expand faster with a unified strategy across all major marketplaces from a single expert team." /><MotionDiv className="flex gap-6 min-w-max" animate={{ x: ['0%', '-50%'] }} transition={{ repeat: Infinity, ease: 'linear', duration: 24 }}>{[...''].map(() => null)}{['Amazon', 'Flipkart', 'Meesho', 'Myntra', 'Nykaa', 'Ajio', 'Walmart', 'eBay', 'Amazon', 'Flipkart', 'Meesho', 'Myntra', 'Nykaa', 'Ajio', 'Walmart', 'eBay'].map((m, i) => <div key={i} className="min-w-[160px] bg-white dark:bg-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl p-6 text-center font-bold shadow-sm">{m}</div>)}</MotionDiv></section>
+    {/* <section className="py-16 overflow-hidden"><SectionHead label="Marketplaces We Manage" title="One Team. Multiple Marketplaces." sub="Expand faster with a unified strategy across all major marketplaces from a single expert team." /><MotionDiv className="flex gap-6 min-w-max" animate={{ x: ['0%', '-50%'] }} transition={{ repeat: Infinity, ease: 'linear', duration: 24 }}>{[...''].map(() => null)}{['Amazon', 'Flipkart', 'Meesho', 'Myntra', 'Nykaa', 'Ajio', 'Walmart', 'eBay', 'Amazon', 'Flipkart', 'Meesho', 'Myntra', 'Nykaa', 'Ajio', 'Walmart', 'eBay'].map((m, i) => <div key={i} className="min-w-[160px] bg-white dark:bg-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl p-6 text-center font-bold shadow-sm">{m}</div>)}</MotionDiv></section> */}
+    <section className="py-16 overflow-hidden">
+      <SectionHead
+        label="Marketplaces We Manage"
+        title="One Team. Multiple Marketplaces."
+        sub="Expand faster with a unified strategy across all major marketplaces from a single expert team."
+      />
+      <MotionDiv
+        className="flex gap-6 min-w-max"
+        animate={{ x: ['0%', '-50%'] }}
+        transition={{ repeat: Infinity, ease: 'linear', duration: 24 }}
+      >
+        {doubled.map((m, i) => (
+          <Link
+            key={i}
+            href={`/marketplaces/${m.slug}`}
+            className="min-w-[160px] bg-white dark:bg-dark-card border border-gray-200 dark:border-gray-800 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 shadow-sm hover:shadow-md hover:border-gray-300 dark:hover:border-gray-600 transition-all group"
+          >
+            <img
+              src={m.logo}
+              alt={`${m.name} logo`}
+              className="h-8 w-auto object-contain"
+              loading="lazy"
+            />
+            <span className="text-xs text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
+              {m.name}
+            </span>
+          </Link>
+        ))}
+      </MotionDiv>
+    </section>
     <section className="py-20 bg-white dark:bg-dark-card"><div className="container mx-auto px-4"><SectionHead label="What We Do" title="Complete Marketplace Management" sub="Everything your brand needs to win on every marketplace — under one roof." /><div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">{services.map(([t, d, I]) => <div key={t} className="p-6 rounded-3xl bg-gray-50 dark:bg-[#151515] border border-gray-200 dark:border-gray-800"><I className="text-primary mb-4" /><h3 className="text-xl font-bold mb-3">{t}</h3><p className="text-gray-600 dark:text-gray-400">{d}</p></div>)}</div></div></section>
     <section className="py-20"><div className="container mx-auto px-4"><SectionHead label="Why Brands Partner With Us" title="Why Brands Partner With Us" sub="The marketplace challenges we solve for growth-focused brands." /><div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">{pains.map(p => <div key={p} className="bg-[#020617] text-white rounded-2xl p-6 flex gap-3 items-center"><Zap className="text-orange-500" /><span className="font-bold">{p}</span></div>)}</div></div></section>
     <section className="py-20 bg-white dark:bg-dark-card"><div className="container mx-auto px-4"><SectionHead label="Our Process" title="Our Marketplace Growth Framework" sub="A proven 6-step system that takes brands from launch to scale." /><div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4">{process.map(([t, d], i) => <div key={t} className="p-5 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"><div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold mb-4">{i + 1}</div><h3 className="font-bold mb-2">{t}</h3><p className="text-sm text-gray-600 dark:text-gray-400">{d}</p></div>)}</div></div></section>
