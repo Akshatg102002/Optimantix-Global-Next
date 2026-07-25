@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Mail, Phone, MapPin, Lock } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const router = useRouter();
@@ -104,7 +104,7 @@ export const Footer: React.FC = () => {
         </div>
         <div className="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 gap-4">
           <p>© {new Date().getFullYear()} Optimantix Global. All rights reserved.</p>
-          <div className="flex gap-4"><Link href="/privacy-policy" className="hover:text-white transition">Privacy Policy</Link><Link href="/terms-of-service" className="hover:text-white transition">Terms of Service</Link><Link href="/admin/login" className="flex items-center gap-1 hover:text-white transition"><Lock size={12} /> Employee Login</Link></div>
+          <div className="flex flex-wrap gap-4"><Link href="/privacy-policy" className="hover:text-white transition">Privacy Policy</Link><Link href="/terms-of-service" className="hover:text-white transition">Terms of Service</Link><Link href="/refund-cancellation" className="hover:text-white transition">Refund &amp; Cancellation</Link></div>
         </div>
       </div>
     </footer>
