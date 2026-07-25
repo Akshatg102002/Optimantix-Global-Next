@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 export const Contact = () => {
   return (
     <div className="bg-white dark:bg-dark min-h-screen">
-{/* Hero Section */}
+      {/* Hero Section */}
       <section className="pt-12 pb-12 md:pt-32 md:pb-2 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-dark relative overflow-hidden">
         <div className="container mx-auto px-4 relative z-10 text-center max-w-4xl">
           <motion.h1
@@ -89,13 +89,19 @@ export const Contact = () => {
       <section className="py-16 bg-gray-50 dark:bg-[#0a0a0a]">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12">
-            <span className="text-primary font-semibold tracking-wider uppercase text-sm mb-2 block">Our Locations</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Global Presence, Local Expertise</h2>
+            <span className="text-primary font-semibold tracking-wider uppercase text-sm mb-2 block">
+              Our Locations
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Global Presence, Local Expertise
+            </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-8">
+          <div className="grid grid-cols-1 gap-8">
             {/* India Office */}
             <div className="bg-white dark:bg-dark-card rounded-3xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row group">
+
+              {/* Image */}
               <div className="sm:w-2/5 h-48 sm:h-auto bg-gray-200 relative overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=800&auto=format&fit=crop"
@@ -103,20 +109,58 @@ export const Contact = () => {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute top-4 left-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full flex items-center shadow-md">
-                  <Globe2 size={12} className="mr-1 text-primary" /> India HQ
+                  <Globe2 size={12} className="mr-1 text-primary" />
+                  India HQ
                 </div>
               </div>
+
+              {/* Content */}
               <div className="p-8 sm:w-3/5 flex flex-col justify-center">
-                <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Noida, India</h3>
+                <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+                  Noida, India
+                </h3>
+
                 <div className="space-y-4">
+                  {/* Corporate Office */}
                   <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
-                    <MapPin className="text-primary shrink-0 mt-0.5" size={18} />
-                    <p>Optimantix Global<br />C-13, Sector 58<br />Noida, Uttar Pradesh 201301<br />India</p>
+                    <MapPin className="text-primary shrink-0 mt-1" size={18} />
+
+                    <div className="flex-1">
+                      <strong className="text-gray-900 dark:text-white">Corporate Office</strong>
+                      <br />
+                      Optimantix Global,
+                      C-13, Sector 58,
+                      <br />
+                      Noida, Gautam Buddha Nagar<br /> Uttar Pradesh 201301
+                      <br />
+                      India
+                    </div>
                   </div>
+
+                  {/* Registered Address */}
+                  <div className="flex items-start gap-3 text-gray-600 dark:text-gray-400 text-sm">
+                    <MapPin className="text-primary shrink-0 mt-1" size={18} />
+
+                    <div className="flex-1">
+                      <strong className="text-gray-900 dark:text-white">Registered Address</strong>
+                      <br />
+                      303, GIZHOR, Near Ashirwad Complex
+                      <br />
+                      Sector-53, Noida, Gautam Buddha Nagar
+                      <br />
+                      Uttar Pradesh 201301
+                      <br />
+                      India
+                    </div>
+                  </div>
+
+                  {/* Phone */}
                   <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400 text-sm">
                     <Phone className="text-primary shrink-0" size={18} />
                     <p>+91 9910343016</p>
                   </div>
+
+                  {/* Office Hours */}
                   <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400 text-sm">
                     <Clock className="text-primary shrink-0" size={18} />
                     <p>Mon - Fri: 9:00 AM - 6:00 PM IST</p>
@@ -124,7 +168,6 @@ export const Contact = () => {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </section>

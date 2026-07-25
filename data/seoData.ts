@@ -137,8 +137,8 @@ const serviceSchema = (name: string, description: string, path: string): Record<
 
 export const seoData: Record<string, PageSEOEntry> = {
   '/': {
-    title: 'Home | Optimantix Global – Digital Marketing Agency',
-    description: 'Optimantix Global is a Noida-based digital marketing agency delivering SEO, Google Ads, Meta Ads, and marketplace growth for over 10 years.',
+    title: 'Optimantix Global: Digital Marketing Agency in Noida ',
+    description: 'Grow faster with expert SEO, Google Ads, Meta Ads & Marketplace Management. Trusted by 100s of brands. 10+ years of proven results. Get a free consultation today!',
     schema: [HOME_ORGANIZATION_SCHEMA, HOME_WEBSITE_SCHEMA],
   },
   '/about': {
