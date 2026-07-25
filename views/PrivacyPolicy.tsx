@@ -5,7 +5,7 @@ import React from 'react';
 export const PrivacyPolicy: React.FC = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 py-16">
-      <div className="container mx-auto px-4 md:px-6 max-w-4xl">
+      <div className="container mx-auto px-4 md:px-6 max-w-4xl mt-10">
         <div className="mb-10">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-3">Privacy Policy</h1>
           <p className="text-sm text-gray-500 dark:text-gray-400">Effective Date: January 01, 2026</p>
@@ -278,8 +278,8 @@ export const PrivacyPolicy: React.FC = () => {
               <p className="font-semibold text-gray-900 dark:text-white mb-2">Optimantix Global Pvt. Ltd.</p>
               <p>
                 Email:{' '}
-                <a href="mailto:info@optimantixglobal.com" className="text-primary hover:underline">
-                  info@optimantixglobal.com
+                <a href="mailto:info@optimantix.com" className="text-primary hover:underline">
+                  info@optimantix.com
                 </a>
               </p>
               <p>

@@ -5,12 +5,12 @@ import React from 'react';
 export const RefundCancellation: React.FC = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 py-16">
-      <div className="container mx-auto px-4 md:px-6 max-w-4xl">
+      <div className="container mx-auto px-4 md:px-6 max-w-4xl mt-10">
         <div className="mb-10">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-3">
             Cancellation &amp; Refund Policy
           </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400">Effective Date: July 24, 2026</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Effective Date: January 01, 2026</p>
         </div>
 
         <div className="prose prose-gray dark:prose-invert max-w-none space-y-8 text-gray-700 dark:text-gray-300">

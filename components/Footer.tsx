@@ -76,16 +76,13 @@ export const Footer: React.FC = () => {
     { label: 'Meesho', href: '/services/marketplace-management/meesho' },
     { label: 'Myntra', href: '/services/marketplace-management/myntra' },
     { label: 'Nykaa', href: '/services/marketplace-management/nykaa' },
-    { label: 'Ajio', href: '/services/marketplace-management' },
-    { label: 'Walmart', href: '/services/marketplace-management' },
-    { label: 'eBay', href: '/services/marketplace-management' },
+    { label: 'Ajio', href: '/services/marketplace-management' }
   ];
 
   const freeTools = [
     { label: 'AEO Checker', href: '/free-tools/aeo-checker/' },
     { label: 'Schema Generator', href: '/free-tools/schema-generator/' },
     { label: 'Robots.txt Checker', href: '/free-tools/robots-txt-checker/' },
-    { label: 'AI Answer Checker', href: '/free-tools/ai-answer-checker/' },
   ];
 
   return (
@@ -97,10 +94,10 @@ export const Footer: React.FC = () => {
             <p className="text-gray-400 text-sm leading-relaxed">End-to-end marketplace management agency helping brands scale across leading marketplaces.</p>
             {/* <div className="flex space-x-4 text-gray-400"><a href="https://www.facebook.com/optimantix" target="_blank" rel="noreferrer" className="hover:text-white transition"><Facebook size={18} /></a><a href="https://in.linkedin.com/company/optimantix" target="_blank" rel="noreferrer" className="hover:text-white transition"><Linkedin size={18} /></a><a href="https://www.instagram.com/optimantix/" target="_blank" rel="noreferrer" className="hover:text-white transition"><Instagram size={18} /></a></div> */}
           </div>
-          <div><h4 className="text-sm font-bold mb-4 text-primary uppercase tracking-wider">Services</h4><ul className="space-y-2">{services.slice(0,4).map(s => <li key={s.href}><Link href={s.href} className="footer-link text-sm">{s.label}</Link></li>)}</ul></div>
+          <div><h4 className="text-sm font-bold mb-4 text-primary uppercase tracking-wider">Services</h4><ul className="space-y-2">{services.slice(0, 4).map(s => <li key={s.href}><Link href={s.href} className="footer-link text-sm">{s.label}</Link></li>)}</ul></div>
           <div><h4 className="text-sm font-bold mb-4 text-primary uppercase tracking-wider">Marketplaces</h4><ul className="space-y-2">{marketplaces.map(m => <li key={m.label}><Link href={m.href} className="footer-link text-sm">{m.label}</Link></li>)}</ul></div>
           <div><h4 className="text-sm font-bold mb-4 text-primary uppercase tracking-wider">Company</h4><ul className="space-y-2"><li><button onClick={(e) => handleNavigation(e, '/about')} className="footer-link text-sm">About Us</button></li><li><button onClick={(e) => handleNavigation(e, '/case')} className="footer-link text-sm">Case Studies</button></li><li><button onClick={(e) => handleNavigation(e, '/blog')} className="footer-link text-sm">Blog</button></li><li><button onClick={(e) => handleNavigation(e, '/contact')} className="footer-link text-sm">Contact</button></li></ul></div>
-          <div><h4 className="text-sm font-bold mb-4 text-primary uppercase tracking-wider">Free Tools</h4><ul className="space-y-2"><li><Link href="/free-tools/" className="footer-link text-sm">All Free Tools</Link></li>{freeTools.map(t => <li key={t.href}><Link href={t.href} className="footer-link text-sm">{t.label}</Link></li>)}</ul></div>
+          <div><h4 className="text-sm font-bold mb-4 text-primary uppercase tracking-wider">Free Tools</h4><ul className="space-y-2">{freeTools.map(t => <li key={t.href}><Link href={t.href} className="footer-link text-sm">{t.label}</Link></li>)}</ul></div>
         </div>
         <div className="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 gap-4">
           <p>© {new Date().getFullYear()} Optimantix Global. All rights reserved.</p>
