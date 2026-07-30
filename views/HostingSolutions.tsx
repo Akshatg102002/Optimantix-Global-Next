@@ -240,9 +240,6 @@ export const HostingSolutions: React.FC = () => {
               transition={{ delay: 0.2 }}
               className="flex flex-col sm:flex-row justify-center gap-4 mb-16"
             >
-              <a href="#plans" className="bg-primary text-white px-8 py-4 rounded-xl font-bold hover:bg-secondary transition shadow-lg shadow-primary/20">
-                Explore Plans
-              </a>
               <a href="/contact" className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 px-8 py-4 rounded-xl font-bold hover:bg-gray-50 dark:hover:bg-gray-700 transition">
                 Talk to an Expert
               </a>

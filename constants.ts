@@ -79,11 +79,6 @@ export const INITIAL_SERVICES: Service[] = [
               "text": "Audit My Campaigns Free",
               "url": "https://optimantix.com/contact",
               "type": "primary"
-            },
-            {
-              "text": "See All Features",
-              "url": "#services",
-              "type": "outline"
             }
           ],
           "trust_items": [
@@ -455,7 +450,7 @@ export const INITIAL_SERVICES: Service[] = [
           "call_to_action_buttons": [
             {
               "text": "Connect With Us ↗",
-              "prompt": "I want a free social media audit from Optimantix",
+              "url": "/contact",
               "type": "primary"
             }
           ]
@@ -737,7 +732,7 @@ export const INITIAL_SERVICES: Service[] = [
           "description": "Whether you're starting from zero or looking to fix what isn't working, we'll audit your social media and show you exactly where the opportunity is — at no cost.",
           "call_to_action_button": {
             "text": "Connect With Us ↗",
-            "prompt": "I want a free social media audit from Optimantix",
+            "url": "/contact",
             "type": "primary"
           }
         }
@@ -797,9 +792,9 @@ export const INITIAL_SERVICES: Service[] = [
           "lead_text": "Most sellers leave serious revenue on the table — not because the product is wrong, but because managing Amazon at scale is a full-time job. Our dedicated amazon account management services team handles every layer of your Seller Central, so you can focus on what you do best.",
           "call_to_action_buttons": [
             {
-              "text": "See How It Works",
-              "prompt": "Tell me more about Optimantix Amazon management pricing and packages",
-              "type": "outline"
+              "text": "Connect With Us ↗",
+              "url": "/contact",
+              "type": "primary"
             }
           ]
         },
@@ -982,7 +977,7 @@ export const INITIAL_SERVICES: Service[] = [
           "description": "Book a free audit and we'll walk through your account, identify the gaps, and show you exactly what we'd do — before you commit to anything.",
           "call_to_action_button": {
             "text": "Book Your Free Audit ↗",
-            "prompt": "I want to book a free Amazon account audit with Optimantix",
+            "url": "/contact",
             "type": "primary"
           }
         }
@@ -1024,7 +1019,7 @@ export const INITIAL_SERVICES: Service[] = [
           "call_to_action_buttons": [
             {
               "text": "Connect With Us ↗",
-              "prompt": "I want a free Flipkart account audit from Optimantix",
+              "url": "/contact",
               "type": "primary"
             }
           ]
@@ -1207,7 +1202,7 @@ export const INITIAL_SERVICES: Service[] = [
           "description": "Start with a free audit — we'll review your account, highlight what's holding it back, and walk you through exactly what we'd do. No sales pitch, just an honest look at what's possible.",
           "call_to_action_button": {
             "text": "Book Your Free Audit ↗",
-            "prompt": "I want to book a free Flipkart account audit with Optimantix",
+            "url": "/contact",
             "type": "primary"
           }
         }
@@ -1251,7 +1246,7 @@ export const INITIAL_SERVICES: Service[] = [
           "call_to_action_buttons": [
             {
               "text": "Get a free brand audit ↗",
-              "prompt": "I want a free Nykaa brand audit from Optimantix",
+              "url": "/contact",
               "type": "primary"
             }
           ],
@@ -1622,7 +1617,7 @@ export const INITIAL_SERVICES: Service[] = [
           "description": "A free brand audit. We review your account, identify every gap, and walk you through exactly what we'd do. No pressure, no sales script. Just an honest look at what's possible.",
           "call_to_action_button": {
             "text": "Book your free brand audit ↗",
-            "prompt": "I want to book a free Nykaa brand audit with Optimantix",
+            "url": "/contact",
             "type": "primary"
           }
         }
@@ -1666,7 +1661,7 @@ export const INITIAL_SERVICES: Service[] = [
           "call_to_action_buttons": [
             {
               "text": "Get a free account audit ↗",
-              "prompt": "I want a free Blinkit and Zepto account audit from Optimantix",
+              "url": "/contact",
               "type": "primary"
             }
           ],
@@ -1965,7 +1960,7 @@ export const INITIAL_SERVICES: Service[] = [
           "description": "A free account audit. We review your Blinkit and Zepto presence, identify every gap — listings, inventory, ads, coverage — and walk you through exactly what we'd do. No pressure, no sales script.",
           "call_to_action_button": {
             "text": "Book your free audit ↗",
-            "prompt": "I want to book a free Blinkit and Zepto account audit with Optimantix",
+            "url": "/contact",
             "type": "primary"
           }
         }
@@ -2009,14 +2004,9 @@ export const INITIAL_SERVICES: Service[] = [
           "call_to_action_buttons": [
             {
               "text": "Get a Free Account Audit ↗",
-              "prompt": "I want a free Meesho account audit from Optimantix",
+              "url": "/contact",
               "type": "primary"
             },
-            {
-              "text": "See What We Do",
-              "prompt": "Tell me about Optimantix Meesho management packages and pricing",
-              "type": "outline"
-            }
           ]
         },
         "statistics_section": {
@@ -2256,7 +2246,7 @@ export const INITIAL_SERVICES: Service[] = [
           "description": "Start with a free audit. We'll look at your account properly — catalogue health, return rate, ad efficiency, and competitive position — and tell you honestly what we'd fix and what we'd expect to happen. No pressure, no pitch.",
           "call_to_action_button": {
             "text": "Book Your Free Audit ↗",
-            "prompt": "I want to book a free Meesho account audit with Optimantix",
+            "url": "/contact",
             "type": "primary"
           }
         }
@@ -2301,14 +2291,9 @@ export const INITIAL_SERVICES: Service[] = [
           "call_to_action_buttons": [
             {
               "text": "Get a Free Brand Audit ↗",
-              "prompt": "I want a free Myntra brand audit from Optimantix",
+              "url": "/contact",
               "type": "primary"
             },
-            {
-              "text": "See What We Do",
-              "prompt": "Tell me about Optimantix Myntra management packages and pricing",
-              "type": "outline"
-            }
           ],
           "trust_items": [
             "No lock-in contracts",
@@ -2610,7 +2595,7 @@ export const INITIAL_SERVICES: Service[] = [
           "description": "Start with a free brand audit. We'll review your catalogue, return rate, ad performance, and competitive position — and walk you through exactly what we'd do. No pressure, no sales script.",
           "call_to_action_button": {
             "text": "Book Your Free Brand Audit ↗",
-            "prompt": "I want to book a free Myntra brand audit with Optimantix",
+            "url": "/contact",
             "type": "primary"
           }
         }
@@ -3695,7 +3680,7 @@ export const INITIAL_SERVICES: Service[] = [
           "sub_note": "No commitment. No hard sell. Just an honest conversation.",
           "call_to_action_button": {
             "text": "Book Free Strategy Call",
-            "url": "https://optimantix.com/services/development/custom-development",
+            "url": "https://optimantix.com/contact",
             "type": "primary"
           },
           "secondary_button": {
@@ -4004,13 +3989,8 @@ export const INITIAL_SERVICES: Service[] = [
           "sub_note": "No commitment required · Free initial consultation · Response within 4 hours",
           "call_to_action_button": {
             "text": "Start Your Logo Project",
-            "url": "https://optimantix.com/services/graphic-design/logo-design",
+            "url": "https://optimantix.com/services/contact",
             "type": "primary"
-          },
-          "secondary_button": {
-            "text": "View All Services",
-            "url": "https://optimantix.com/services/graphic-design/logo-design",
-            "type": "outline"
           }
         }
       },
@@ -4329,13 +4309,8 @@ export const INITIAL_SERVICES: Service[] = [
           "sub_note": "No commitment. No agency jargon. Just an honest conversation.",
           "call_to_action_button": {
             "text": "Book Free Strategy Call",
-            "url": "https://optimantix.com/services/graphic-design/packaging",
+            "url": "https://optimantix.com/contact",
             "type": "primary"
-          },
-          "secondary_button": {
-            "text": "See More Work",
-            "url": "https://optimantix.com/services/graphic-design/packaging",
-            "type": "outline"
           }
         }
       }

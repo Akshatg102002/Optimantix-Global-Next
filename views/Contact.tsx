@@ -93,7 +93,7 @@ export const Contact = () => {
               Our Locations
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Global Presence, Local Expertise
+              Our Offices
             </h2>
           </div>
 
@@ -104,14 +104,10 @@ export const Contact = () => {
               {/* Image */}
               <div className="sm:w-2/5 h-48 sm:h-auto bg-gray-200 relative overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=800&auto=format&fit=crop"
+                  src="https://images.unsplash.com/photo-1549637642-90187f64f420"
                   alt="India Office"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full flex items-center shadow-md">
-                  <Globe2 size={12} className="mr-1 text-primary" />
-                  India HQ
-                </div>
               </div>
 
               {/* Content */}
