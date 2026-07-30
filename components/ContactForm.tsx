@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { SimpleCaptcha, CaptchaRef } from './SimpleCaptcha';

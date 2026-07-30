@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useRef } from 'react';
 import Papa from 'papaparse';
 import { Upload, FileText, AlertCircle, Loader2, Download } from 'lucide-react';

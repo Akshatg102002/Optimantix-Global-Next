@@ -1,6 +1,8 @@
+'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, ArrowRight, Sun, Moon, ChevronRight as ChevronRightIcon, Home, Briefcase, FileText, Globe, Server, Wrench } from 'lucide-react';
 import { useData } from '../context/DataContext';
 import { Icon } from './Icon';
@@ -13,7 +15,7 @@ export const Header: React.FC = () => {
   const [isToolsOpen, setIsToolsOpen] = useState(false);
   const [activeServiceId, setActiveServiceId] = useState<string | null>(null);
   const { services, isDark, toggleTheme } = useData();
-  const location = useLocation();
+  const pathname = usePathname();
 
   const MotionDiv = motion.div as React.ElementType;
 
@@ -25,7 +27,7 @@ export const Header: React.FC = () => {
       setIsToolsOpen(false);
     }, 0);
     return () => clearTimeout(timer);
-  }, [location]);
+  }, [pathname]);
 
   // Set initial active service for Mega Menu
   useEffect(() => {
@@ -46,13 +48,13 @@ export const Header: React.FC = () => {
   return (
     <>
       <div className="bg-primary text-white text-sm py-2 px-4 text-center fixed top-0 w-full z-[60] font-syne tracking-wide flex items-center justify-center gap-2 max-w-[100vw] overflow-hidden truncate">
-          <span className="truncate">Ready to rank higher?</span> <Link to="/free-seo-audit" className="font-bold underline hover:text-blue-200 shrink-0">Get your Free SEO Audit today →</Link>
+          <span className="truncate">Ready to rank higher?</span> <Link href="/free-seo-audit" className="font-bold underline hover:text-blue-200 shrink-0">Get your Free SEO Audit today →</Link>
       </div>
       <header className="fixed top-9 left-0 right-0 z-50 px-4 sm:px-6 lg:px-8 pt-4 pb-4 bg-[#020514]">
         <nav className="max-w-7xl mx-auto bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-xl shadow-lg relative">
           <div className="flex justify-between items-center h-20 px-6">
             {/* Logo - Left */}
-            <Link to="/" onClick={handleNavClick} className="flex items-center space-x-2 z-10">
+            <Link href="/" onClick={handleNavClick} className="flex items-center space-x-2 z-10">
               <img
                 src="https://i.ibb.co/FkFfTxxC/opti.png"
                 alt="Optimantix Logo"
@@ -62,7 +64,7 @@ export const Header: React.FC = () => {
 
             {/* Desktop Nav - Centered */}
             <div className="hidden lg:flex flex-1 justify-center items-center space-x-2">
-              <Link to="/" onClick={handleNavClick} className="flex items-center gap-2 px-4 py-2 rounded-full font-medium text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
+              <Link href="/" onClick={handleNavClick} className="flex items-center gap-2 px-4 py-2 rounded-full font-medium text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
                 <Home className="w-4 h-4" />
                 <span>Home</span>
               </Link>
@@ -138,7 +140,7 @@ export const Header: React.FC = () => {
                                         </p>
                                     </div>
                                     <Link
-                                        to={`/services/${service.slug}`}
+                                        href={`/services/${service.slug}`}
                                         onClick={handleNavClick}
                                         className="text-sm font-bold text-primary hover:text-secondary flex items-center gap-1 bg-primary/5 px-4 py-2 rounded-lg transition-colors hover:bg-primary/10"
                                     >
@@ -153,7 +155,7 @@ export const Header: React.FC = () => {
                                     {service.subServices.map(sub => (
                                         <Link
                                         key={sub.id}
-                                        to={`/services/${service.slug}/${sub.slug}`}
+                                        href={`/services/${service.slug}/${sub.slug}`}
                                         onClick={handleNavClick}
                                         className="group block p-4 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-primary/30 dark:hover:border-primary/30 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all shadow-sm hover:shadow-md"
                                         >
@@ -173,7 +175,7 @@ export const Header: React.FC = () => {
                                             Explore our comprehensive services on the main page.
                                         </p>
                                         <Link
-                                            to={`/services/${service.slug}`}
+                                            href={`/services/${service.slug}`}
                                             onClick={handleNavClick}
                                             className="bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-secondary transition-colors shadow-lg shadow-primary/20"
                                         >
@@ -191,11 +193,11 @@ export const Header: React.FC = () => {
                 </AnimatePresence>
               </div>
 
-              <Link to="/google-workspace" onClick={handleNavClick} className="flex items-center gap-2 px-4 py-2 rounded-full font-medium text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
+              <Link href="/google-workspace" onClick={handleNavClick} className="flex items-center gap-2 px-4 py-2 rounded-full font-medium text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
                 <Globe className="w-4 h-4" />
                 <span>Workspace</span>
               </Link>
-              <Link to="/hosting" onClick={handleNavClick} className="flex items-center gap-2 px-4 py-2 rounded-full font-medium text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
+              <Link href="/hosting" onClick={handleNavClick} className="flex items-center gap-2 px-4 py-2 rounded-full font-medium text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
                 <Server className="w-4 h-4" />
                 <span>Hosting</span>
               </Link>
@@ -205,7 +207,7 @@ export const Header: React.FC = () => {
                 onMouseEnter={() => setIsToolsOpen(true)}
                 onMouseLeave={() => setIsToolsOpen(false)}
               >
-                <Link to="/free-tools" onClick={handleNavClick} className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all duration-200 ${isToolsOpen ? 'text-primary bg-gray-100 dark:bg-gray-800' : 'text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+                <Link href="/free-tools" onClick={handleNavClick} className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all duration-200 ${isToolsOpen ? 'text-primary bg-gray-100 dark:bg-gray-800' : 'text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
                   <Wrench className="w-4 h-4" />
                   <span>Free Tools</span>
                   <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isToolsOpen ? 'rotate-180' : ''}`} />
@@ -216,10 +218,10 @@ export const Header: React.FC = () => {
                       <div className="max-w-6xl mx-auto bg-[#020617] rounded-xl shadow-2xl border border-gray-800 p-8 grid grid-cols-4 gap-6">
                         {FREE_TOOL_CATEGORIES.map(category => (
                           <div key={category.title}>
-                            <Link to={`/free-tools/#${category.anchor}`} onClick={handleNavClick} className="block text-primary text-xs font-bold uppercase tracking-widest mb-4">{category.title}</Link>
+                            <Link href={`/free-tools/#${category.anchor}`} onClick={handleNavClick} className="block text-primary text-xs font-bold uppercase tracking-widest mb-4">{category.title}</Link>
                             <div className="space-y-3">
                               {FREE_TOOLS.filter(tool => tool.category === category.title).map(tool => (
-                                <Link key={tool.slug} to={`/free-tools/${tool.slug}/`} onClick={handleNavClick} className="flex items-center gap-2 text-sm text-white hover:text-primary transition-colors">
+                                <Link key={tool.slug} href={`/free-tools/${tool.slug}/`} onClick={handleNavClick} className="flex items-center gap-2 text-sm text-white hover:text-primary transition-colors">
                                   <span>{tool.icon}</span><span>{tool.name}</span>
                                 </Link>
                               ))}
@@ -231,7 +233,7 @@ export const Header: React.FC = () => {
                   )}
                 </AnimatePresence>
               </div>
-              <Link to="/case" onClick={handleNavClick} className="flex items-center gap-2 px-4 py-2 rounded-full font-medium text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
+              <Link href="/case" onClick={handleNavClick} className="flex items-center gap-2 px-4 py-2 rounded-full font-medium text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200">
                 <Briefcase className="w-4 h-4" />
                 <span>Case Studies</span>
               </Link>
@@ -246,7 +248,7 @@ export const Header: React.FC = () => {
                 {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </button>
               <Link
-                to="/contact"
+                href="/contact"
                 onClick={handleNavClick}
                 className="bg-primary text-white px-6 py-2.5 rounded-full font-medium hover:bg-primary-dark transition-colors flex items-center space-x-2 shadow-lg shadow-primary/20 hover:scale-105 duration-200"
               >
@@ -277,7 +279,7 @@ export const Header: React.FC = () => {
         {isOpen && (
           <div className="lg:hidden mt-2 bg-white dark:bg-gray-900 rounded-3xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-800 max-h-[calc(100vh-100px)] overflow-y-auto">
             <div className="px-4 py-4 space-y-3">
-              <Link to="/" onClick={handleNavClick} className="flex items-center gap-3 text-lg font-medium text-gray-800 dark:text-gray-200 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors">
+              <Link href="/" onClick={handleNavClick} className="flex items-center gap-3 text-lg font-medium text-gray-800 dark:text-gray-200 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors">
                 <Home className="w-5 h-5 text-primary" />
                 <span>Home</span>
               </Link>
@@ -297,7 +299,7 @@ export const Header: React.FC = () => {
                 {isServicesOpen && (
                   <div className="mt-2 ml-4 space-y-2 border-l-2 border-gray-200 dark:border-gray-700 pl-4">
                     <Link
-                      to="/services"
+                      href="/services"
                       onClick={handleNavClick}
                       className="block text-sm font-medium text-primary hover:text-primary-dark p-2"
                     >
@@ -307,7 +309,7 @@ export const Header: React.FC = () => {
                     {services.map(service => (
                       <div key={service.id} className="space-y-1">
                         <Link
-                          to={`/services/${service.slug}`}
+                          href={`/services/${service.slug}`}
                           onClick={handleNavClick}
                           className="block text-base font-medium text-gray-700 dark:text-gray-300 hover:text-primary p-2"
                         >
@@ -320,7 +322,7 @@ export const Header: React.FC = () => {
                             {service.subServices.map(sub => (
                               <Link
                                 key={sub.id}
-                                to={`/services/${service.slug}/${sub.slug}`}
+                                href={`/services/${service.slug}/${sub.slug}`}
                                 onClick={handleNavClick}
                                 className="block text-sm text-gray-600 dark:text-gray-400 hover:text-primary p-2"
                               >
@@ -335,12 +337,12 @@ export const Header: React.FC = () => {
                 )}
               </div>
 
-              <Link to="/google-workspace" onClick={handleNavClick} className="flex items-center gap-3 text-lg font-medium text-gray-800 dark:text-gray-200 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors">
+              <Link href="/google-workspace" onClick={handleNavClick} className="flex items-center gap-3 text-lg font-medium text-gray-800 dark:text-gray-200 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors">
                 <Globe className="w-5 h-5 text-primary" />
                 <span>Google Workspace</span>
               </Link>
 
-              <Link to="/hosting" onClick={handleNavClick} className="flex items-center gap-3 text-lg font-medium text-gray-800 dark:text-gray-200 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors">
+              <Link href="/hosting" onClick={handleNavClick} className="flex items-center gap-3 text-lg font-medium text-gray-800 dark:text-gray-200 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors">
                 <Server className="w-5 h-5 text-primary" />
                 <span>Hosting Solutions</span>
               </Link>
@@ -352,23 +354,23 @@ export const Header: React.FC = () => {
                   <ChevronDown className={`h-5 w-5 transition-transform ${isToolsOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isToolsOpen && <div className="mt-2 ml-4 space-y-4 border-l-2 border-gray-200 dark:border-gray-700 pl-4">
-                  <Link to="/free-tools" onClick={handleNavClick} className="block text-sm font-medium text-primary p-2">View All Free Tools</Link>
+                  <Link href="/free-tools" onClick={handleNavClick} className="block text-sm font-medium text-primary p-2">View All Free Tools</Link>
                   {FREE_TOOL_CATEGORIES.map(category => <div key={category.title}>
                     <p className="text-xs font-bold uppercase tracking-wider text-primary px-2 mb-1">{category.title}</p>
-                    {FREE_TOOLS.filter(tool => tool.category === category.title).map(tool => <Link key={tool.slug} to={`/free-tools/${tool.slug}/`} onClick={handleNavClick} className="block text-sm text-gray-600 dark:text-gray-400 hover:text-primary p-2">{tool.icon} {tool.name}</Link>)}
+                    {FREE_TOOLS.filter(tool => tool.category === category.title).map(tool => <Link key={tool.slug} href={`/free-tools/${tool.slug}/`} onClick={handleNavClick} className="block text-sm text-gray-600 dark:text-gray-400 hover:text-primary p-2">{tool.icon} {tool.name}</Link>)}
                   </div>)}
                 </div>}
               </div>
-              <Link to="/blog" onClick={handleNavClick} className="flex items-center gap-3 text-lg font-medium text-gray-800 dark:text-gray-200 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors">
+              <Link href="/blog" onClick={handleNavClick} className="flex items-center gap-3 text-lg font-medium text-gray-800 dark:text-gray-200 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors">
                 <FileText className="w-5 h-5 text-primary" />
                 <span>Blog</span>
               </Link>
-              <Link to="/case" onClick={handleNavClick} className="flex items-center gap-3 text-lg font-medium text-gray-800 dark:text-gray-200 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors">
+              <Link href="/case" onClick={handleNavClick} className="flex items-center gap-3 text-lg font-medium text-gray-800 dark:text-gray-200 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors">
                 <Briefcase className="w-5 h-5 text-primary" />
                 <span>Case Studies</span>
               </Link>
               <Link
-                to="/contact"
+                href="/contact"
                 onClick={handleNavClick}
                 className="block bg-primary text-white px-4 py-3 rounded-xl font-medium text-center hover:bg-primary-dark transition-colors shadow-lg shadow-primary/20 mt-4"
               >
